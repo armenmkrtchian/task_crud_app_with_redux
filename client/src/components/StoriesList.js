@@ -2,8 +2,6 @@ import React, { Component } from "react";
 import { getList } from "../ListFunctions";
 import { NavLink } from "react-router-dom";
 
-const link = { to: "/story/:id", label: "{item.title}" };
-
 class Stories extends Component {
   constructor() {
     super();
@@ -39,22 +37,15 @@ class Stories extends Component {
     return (
       <div>
         <h1 className="text-center">Stories</h1>
-
-
-          <div>
-          <ul
-          className="list-group"
-           style={{listStyleType: 'none'}}>
-              {this.state.items.map((item, index) => (
-                <li 
-                key={index}
-                className="list-group-item ">
-                  <NavLink to={link.to}>{item.title}</NavLink>
-                </li>
-              ))
-              }
-            </ul>
-          </div>
+        <div>
+          <ul className="list-group" style={{ listStyleType: "none" }}>
+            {this.state.items.map((item, index) => (
+              <li key={index} className="list-group-item ">
+                <NavLink to={"/story/:id"}>{item.title}</NavLink>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     );
   }

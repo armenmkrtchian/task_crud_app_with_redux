@@ -7,11 +7,10 @@ import Story from "./Story";
 import CreateStory from "./CreateStory";
 import UpdateStory from "./UpdateStory";
 import { NavLink } from "react-router-dom";
-// import Layout from "./hoc/Layout";
 
-const link1 = { to: "/stories"};
-const link2 = { to: "/story-creator"};
-const link3 = { to: "/story-update"};
+const link1 = { to: "/stories" };
+const link2 = { to: "/stories/add" };
+const link3 = { to: "/stories/edit" };
 
 class App extends Component {
   constructor(props) {
@@ -25,10 +24,8 @@ class App extends Component {
     return (
       <div>
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-          <NavLink to={'/'}>
-          <div className="navbar-brand">
-            Home
-          </div>
+          <NavLink to={"/"}>
+            <div className="navbar-brand">Home</div>
           </NavLink>
           <button
             className="navbar-toggler"
@@ -76,9 +73,9 @@ class App extends Component {
           <div className="row">
             <div className="col-md-12 mx-auto">
               <Switch>
-                <Route path="/stories" component={StoriesList} />
-                <Route path="/story-creator" component={CreateStory} />
-                <Route path="/story-update" component={UpdateStory} />
+                <Route path="/stories" component={StoriesList} exact/>
+                <Route path="/stories/add" component={CreateStory} />
+                <Route path="/stories/edit" component={UpdateStory} />
                 <Route path="/story/:id" component={Story} />
                 <Route path="/" component={Home} />
               </Switch>
