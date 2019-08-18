@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export const getList = () => {
     return axios
-        .get('/api/tasks', {
+        .get('/api/stories', {
             headers: { 'Content-Type': 'application/json' }
         })
         .then(res => {
@@ -13,7 +13,7 @@ export const getList = () => {
 export const addItem = (title, description) => {
     return axios
         .post(
-            '/api/tasks',
+            '/api/stories',
             {
                 title: title,
                 description: description
@@ -23,13 +23,14 @@ export const addItem = (title, description) => {
             }
         )
         .then(function(response) {
+            
             console.log(response)
         })
 }
 
 export const deleteItem = id => {
     axios
-        .delete(`/api/tasks/${id}`, {
+        .delete(`/api/stories/${id}`, {
             headers: { 'Content-Type': 'application/json' }
         })
         .then(function(response) {
@@ -43,7 +44,7 @@ export const deleteItem = id => {
 export const updateItem = (title, id, description) => {
     return axios
         .put(
-            `/api/tasks/${id}`,
+            `/api/stories/${id}`,
             {
                 title: title,
                 description: description

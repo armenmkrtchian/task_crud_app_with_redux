@@ -1,9 +1,8 @@
-import {FETCH_STORIES_SUCCESS} from '../actions/actionTypes';
+import {FETCH_STORIES_SUCCESS, FETCH_STORY_BY_ID_SUCCESS} from '../actions/actionTypes';
 const initialState = {
     id: '',
     title: '',
     description: '',
-    editDisabled: false,
     items: []
 }
 
@@ -15,6 +14,10 @@ export default function storyReducer(state = initialState, action) {
       return {
         ...state, items: action.items
       }
+      case FETCH_STORY_BY_ID_SUCCESS:
+        return {
+          ...state, item: action.id
+        }
     default:
       return state
   }
