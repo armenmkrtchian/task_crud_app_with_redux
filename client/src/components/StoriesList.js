@@ -48,7 +48,7 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     fetchStories: () => dispatch(fetchStories()),
-    fetchQuizById: () => dispatch(fetchQuizById())
+    fetchQuizById: (id) => dispatch(fetchQuizById(id))
   }
 }
 export default connect(mapStateToProps,mapDispatchToProps)(Stories);

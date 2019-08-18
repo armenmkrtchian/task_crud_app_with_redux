@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { addItem, getList } from "../ListFunctions";
 import { NavLink } from "react-router-dom";
+import { connect } from "react-redux";
+import { createStory, finishCreateStory } from '../redux/actions/createStory'
 
 class CreateStory extends Component {
   constructor() {
@@ -19,13 +21,14 @@ class CreateStory extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    addItem(this.state.title, this.state.description).then(() => {
-      this.getAll();
-    });
-    this.setState({
-      title: "",
-      description: ""
-    });
+    createStory
+    // addItem(this.state.title, this.state.description).then(() => {
+    //   this.getAll();
+    // });
+    // this.setState({
+    //   title: "",
+    //   description: ""
+    // });
   };
 
   onChange = e => {
@@ -102,4 +105,19 @@ class CreateStory extends Component {
   }
 }
 
-export default CreateStory;
+function mapStateToProps(state) {
+  return {
+    id: state.createReducer.id,
+    title: state.createReducer.title,
+    description: state.createReducer.description,
+    items: state.createReducer.items
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    createStory: item =>dispatch(createStory(item)),
+    finishCreateStory: () => dispatch(finishCreateStory())
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(CreateStory);
