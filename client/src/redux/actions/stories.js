@@ -16,57 +16,51 @@ export function fetchStories() {
     dispatch(fetchQuizesStart())
       try {
         const response = await axios.get('api/stories')
-        const items = []
-        const example = response.data.map((val)=> {
-              return val['title']
-        } )
-        // console.log("Example",example)
-        // console.log("response.data",response.data)
-
-          example.forEach((item, index) => {
-            items.push({
-              id: index,
-              title:item 
-            })
-          })
-            dispatch(fetchQuizesSuccess(items))
-              //console.log(999,items)
-        } catch(e) {
-            dispatch(fetchQuizesError(e))
-        }
+        const items = response.data
+       
+        dispatch(fetchQuizesSuccess(items))
+            //console.log(999,items)
+            // console.log("bubu",items[0].id)
+      } catch(e) {
+          dispatch(fetchQuizesError(e))
+      }
     }
 }
 
-export function fetchQuizById(quizId) {
+export function fetchStoryById(storyId) {
   return async dispatch => {
-    dispatch(fetchQuizByIdStart())
+    dispatch(fetchStoryByIdStart())
     
     try {
-      const response = await axios.get(`/stories/${quizId}`)
-      const quiz = response.data
-
-      dispatch(fetchQuizSuccess(quiz))
+      const response = await axios.get(`api/stories/${storyId}`)
+      response.data.forEach(function(element) {
+        console.log(element);
+      });
+      
+      const storyId = response.data
+     
+      dispatch(fetchStoryByIdSuccess(storyId))
     } catch (e) {
-      dispatch(fetchQuizError(e))
+      dispatch(fetchStoryByIdError(e))
     }
   }
 }
 
 
-export function fetchQuizByIdStart(){
+export function fetchStoryByIdStart(){
   return {
       type: FETCH_STORY_BY_ID_START
   }
 }
 
-export function fetchQuizSuccess(storyId) {
+export function fetchStoryByIdSuccess(storyId) {
   return {
     type: FETCH_STORY_BY_ID_SUCCESS,
     storyId
   }
 }
 
-export function fetchQuizError(e){
+export function fetchStoryByIdError(e){
   return {
     type: FETCH_STORY_BY_ID_ERROR,
     error: e

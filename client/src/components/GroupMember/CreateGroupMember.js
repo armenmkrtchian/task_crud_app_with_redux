@@ -1,16 +1,17 @@
 import React, { Component } from "react";
-import { addItem, getList } from "../ListFunctions";
+import { addItem, getList } from "./GroupMemberFunctions";
 import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { createStory, finishCreateStory } from '../redux/actions/createStory'
+import { createStory, finishCreateStory } from "../../redux/actions/createGroupMember"
 
-class CreateStory extends Component {
+class CreateGroupMember extends Component {
   constructor() {
     super();
     this.state = {
       id: "",
-      title: "",
-      description: "",
+      lessons: "",
+      topics: "",
+      link: "",
       editDisabled: false,
       items: []
     };
@@ -21,14 +22,15 @@ class CreateStory extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    createStory
-    // addItem(this.state.title, this.state.description).then(() => {
-    //   this.getAll();
-    // });
-    // this.setState({
-    //   title: "",
-    //   description: ""
-    // });
+   
+    addItem(this.state.lessons, this.state.topics, this.state.link).then(() => {
+      this.getAll();
+    });
+    this.setState({
+      lessons: "",
+      topics: "",
+      link: "",
+    });
   };
 
   onChange = e => {
@@ -41,8 +43,9 @@ class CreateStory extends Component {
     getList().then(data => {
       this.setState(
         {
-          title: "",
-          description: "",
+          lessons: "",
+          topics: "",
+          link: "",
           items: [...data]
         },
         () => {
@@ -59,7 +62,7 @@ class CreateStory extends Component {
           <div className="card card-default">
             <div className="card-header">
               <div className="card-body">
-                <h1>Create story</h1>
+                <h1>Create group and member</h1>
                   <form onSubmit={this.onSubmit}>
                     <div className="form-group">
                       <label htmlFor="title" />
@@ -68,21 +71,32 @@ class CreateStory extends Component {
                           <input
                             type="text"
                             className="form-control"
-                            id="title"
-                            placeholder="Title"
-                            name="title"
-                            value={this.state.title || ""}
+                            id="lesson"
+                            placeholder="Lesson"
+                            name="lesson"
+                            value={this.state.lesson || ""}
                             onChange={this.onChange.bind(this)}
                           />
                         </div>
 
                         <div className="col-md-12">
                           <textarea
-                            name="description"
-                            id="description"
-                            placeholder="Description"
-                            value={this.state.description || ""}
+                            name="topics"
+                            id="topics"
+                            placeholder="Topics"
+                            value={this.state.topics || ""}
                             className="form-control"
+                            onChange={this.onChange.bind(this)}
+                          />
+                        </div>
+                        <div className="col-md-12">
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="link"
+                            placeholder="Link"
+                            name="link"
+                            value={this.state.link || ""}
                             onChange={this.onChange.bind(this)}
                           />
                         </div>
@@ -107,10 +121,11 @@ class CreateStory extends Component {
 
 function mapStateToProps(state) {
   return {
-    id: state.createReducer.id,
-    title: state.createReducer.title,
-    description: state.createReducer.description,
-    items: state.createReducer.items
+    id: state.createGroupMemberReducer.id,
+    lessons: state.createGroupMemberReducer.lessons,
+    topics: state.createGroupMemberReducer.topics,
+    link: state.createGroupMemberReducer.link,
+    items: state.createGroupMemberReducer.items
   }
 }
 function mapDispatchToProps(dispatch) {
@@ -120,4 +135,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(CreateStory);
+export default connect(mapStateToProps,mapDispatchToProps)(CreateGroupMember);

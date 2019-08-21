@@ -16,14 +16,25 @@ class TaskController extends Controller
     {
         return Task::find($id);
     }
+    // public function show(Request $request,  $id)
+    // {
+        
+    //     $task = Task::findOrFail($id);
+    //     $task->show($request->all());
+
+    //     return Task::find($id);
+    // }
 
     public function store(Request $request)
     {
 
-        // $this->validate($request, [
-        //     'title' => 'required|unique:posts|max:255',
-        //     'description' => 'required',
-        //     ]);
+        $this->validate($request, [
+            'name' => 'required',
+            'surname' => 'required',
+            'email' => 'required',
+            'password' => 'required'
+            ]);
+
         return Task::create($request->all());
 
     }

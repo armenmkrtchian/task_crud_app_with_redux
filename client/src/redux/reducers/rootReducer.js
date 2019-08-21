@@ -1,8 +1,12 @@
 import {combineReducers} from 'redux'
-import storyReducer from './stories'
-import createStoryReducer from './createStory'
+
+import createTrainer from './createTrainer';
+import createLessonsTopics from './createLessonsTopics';
+import createGroupMember from './createGroupMember'
 
 export default combineReducers({
-    storiesList: storyReducer,
-    createReducer: createStoryReducer
+    
+    createTrainerReducer: createTrainer,
+    createLessonsTopicsReducer: createLessonsTopics,
+    createGroupMemberReducer: createGroupMember
 })

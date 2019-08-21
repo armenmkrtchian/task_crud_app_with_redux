@@ -1,8 +1,10 @@
 import {FETCH_STORIES_SUCCESS, FETCH_STORY_BY_ID_SUCCESS} from '../actions/actionTypes';
 const initialState = {
     id: '',
-    title: '',
-    description: '',
+    name: '',
+    surname: '',
+    email: '',
+    password: '',createTrainerReducercreateTrainerReducer
     items: []
 }
 

@@ -1,15 +1,15 @@
 import React, { Component } from "react";
-import { getList, addItem, deleteItem, updateItem } from "../ListFunctions";
+import { getList, addItem, deleteItem, updateItem } from "./TrainerFunctions";
 
 class UpdateStory extends Component {
   constructor() {
     super();
     this.state = {
       id: "",
-      title: "",
-      description: "",
-      arttitle: "",
-      artbody: "",
+      name: "",
+      surname : "",
+      email: "",
+      password: "",
       editDisabled: false,
       items: []
     };
@@ -32,8 +32,10 @@ class UpdateStory extends Component {
     getList().then(data => {
       this.setState(
         {
-          title: "",
-          description: "",
+          name: "",
+          surname: "",
+          email: "",
+          password: "",
           items: [...data]
         },
         () => {
@@ -45,18 +47,20 @@ class UpdateStory extends Component {
 
   onSubmit = e => {
     e.preventDefault();
-    addItem(this.state.title, this.state.description).then(() => {
+    addItem(this.state.name, this.state.surname, this.state.email, this.state.password).then(() => {
       this.getAll();
     });
     this.setState({
-      title: "",
-      description: ""
+      name: "",
+      surname: "",
+      email: "",
+      password: ""
     });
   };
 
   onUpdate = e => {
     e.preventDefault();
-    updateItem(this.state.title, this.state.id, this.state.description).then(
+    updateItem(this.state.name, this.state.id, this.state.surname, this.state.email, this.state.password).then(
       () => {
         this.getAll();
       }
@@ -74,8 +78,8 @@ class UpdateStory extends Component {
       if (item.id === itemid) {
         this.setState({
           id: item.id,
-          title: item.title,
-          description: item.description,
+          name: item.name,
+          surname: item.surname,
           editDisabled: true
         });
       }
@@ -103,31 +107,53 @@ class UpdateStory extends Component {
           <div className="card card-default">
             <div className="card-header">
               <div className="card-body">
-                <h1>Update story</h1>
                 {this.state.editDisabled ? (
                   <form onSubmit={this.onSubmit}>
+                    <h1>Update trainer's information</h1>
                     <div className="form-group">
-                      <label htmlFor="title" />
+                      <label htmlFor="name" />
                       <div className="row">
                         <div className="col-md-12">
                           <input
                             type="text"
                             className="form-control"
-                            id="title"
-                            placeholder="Title"
-                            name="title"
-                            value={this.state.title || ""}
+                            id="name"
+                            placeholder="Name"
+                            name="name"
+                            value={this.state.name || ""}
                             onChange={this.onChange.bind(this)}
                           />
                         </div>
 
                         <div className="col-md-12">
                           <textarea
-                            name="description"
-                            id="description"
-                            placeholder="Description"
-                            value={this.state.description || ""}
+                            name="surname"
+                            id="surname"
+                            placeholder="Surname"
+                            value={this.state.surname || ""}
                             className="form-control"
+                            onChange={this.onChange.bind(this)}
+                          />
+                        </div>
+                        <div className="col-md-12">
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="email"
+                            placeholder="Email"
+                            name="email"
+                            value={this.state.email || ""}
+                            onChange={this.onChange.bind(this)}
+                          />
+                        </div>
+                        <div className="col-md-12">
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="password"
+                            placeholder="Password"
+                            name="password"
+                            value={this.state.password || ""}
                             onChange={this.onChange.bind(this)}
                           />
                         </div>
@@ -161,10 +187,20 @@ class UpdateStory extends Component {
             </div>
           </div>
           <table className="table">
+          
             <tbody>
+              <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Email</th>
+            <th scope="col">Password</th>
+         </tr>
               {this.state.items.map((item, index) => (
                 <tr key={index}>
                   <td className="text-left">{item.title}</td>
+                  <td className="text">{item.surname}</td>
+                  <td className="text">{item.email}</td>
+                  <td className="text">{item.password}</td>
                   <td className="text-right">
                     <button
                       href=""

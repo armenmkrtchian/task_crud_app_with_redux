@@ -10,15 +10,15 @@ export const getList = () => {
         })
 }
 
-export const addItem = (name, surname, email, password) => {
+export const addItem = (lessons, topics, link) => {
     return axios
         .post(
             '/api/stories',
             {
-                name: name,
-                surname: surname,
-                email: email,
-                password: password
+                lessons: lessons,
+                topics: topics,
+                link: link,
+                
             },
             {
                 headers: { 'Content-Type': 'application/json' }
@@ -43,15 +43,14 @@ export const deleteItem = id => {
         })
 }
 
-export const updateItem = (name, id, surname, email, password) => {
+export const updateItem = (lessons, id, topics, link) => {
     return axios
         .put(
             `/api/stories/${id}`,
             {
-                name: name,
-                surname: surname,
-                email: email,
-                password: password
+                lessons: lessons,
+                topics: topics,
+                link: link,
             },
             {
                 headers: { 'Content-Type': 'application/json' }
